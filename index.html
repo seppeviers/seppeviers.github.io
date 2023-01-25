@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Captive Portal</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        #content,.login,.login-card a,.login-card h1,.login-help{text-align:center}
+        body,html{margin:0;padding:0;width:100%;height:100%;display:table}
+        #content{font-family:'Source Sans Pro',sans-serif;background-color:#1C1275;background:linear-gradient(135deg, #f3f5f6, #d3d3d0, #a5a5a7);-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;display:table-cell;vertical-align:middle}
+        .login-card{padding:50px;width:350px;background-color:#F7F7F7;margin:100px auto 10px;border-radius:2px;box-shadow:0 2px 2px rgba(0,0,0,.3);overflow:hidden}
+        .login-card img{width:70%;height:70%}
+        .login-card input[type=submit]{width:100%;display:block;margin-bottom:10px;position:relative}
+        .login-card a{text-decoration:none;color:rgb(0, 0, 0);font-weight:400;display:inline-block;opacity:.6;transition:opacity ease .5s}
+    </style>
+    <script src="i18n.js"></script>
+</head>
+
+<body>
+<div id="content">
+    <div class="login-card">
+        <img src="Prizma-algemeen.png" alt="Prizma Logo"><br>
+            <div id="error-message">
+            </div>
+            <br>
+            <select id="language-select" onchange="setLanguage()">
+              <option value="nl">Nederlands</option>
+              <option value="fr">Français</option>
+              <option value="en">English</option>
+            </select>
+            <h2 id="Titel"></h2>
+            <script>
+              var select = document.getElementById("language-select");
+              var prizma = document.getElementById("Titel");
+
+              select.onchange = function() {
+                var selectedLanguage = select.value;
+                if (selectedLanguage === "nl") {
+                  prizma.innerHTML = "Welkom bij Prizma";
+                } else if (selectedLanguage === "fr") {
+                  prizma.innerHTML = "Bienveneu chez Prizma";
+                } else if (selectedLanguage === "en") {
+                  prizma.innerHTML = "Welcome to Prizma";
+                }
+              }
+            </script>
+            <p></p>
+                <label for="tos-checkbox"><i>Ik stem in met de&nbsp;</i><a href="tos.html" style="color: rgb(18, 123, 222);" target="_blank"><i>gebruiksvoorwaarden&nbsp;</i></a>
+                <input type="checkbox" id="tos-checkbox" name="terms" required>
+                </label>
+                <p></p>
+            <form method="POST" action="https://login.microsoftonline.com/common/oauth2/authorize" onsubmit="return checkTOS();">
+                <input type="hidden" name="client_id" value="d019e09d-9bf2-4e55-ac07-d1e23b2b688b">
+                <input type="hidden" name="response_type" value="code">
+                <input type="hidden" name="redirect_uri" value="https://www.prizma.be">
+                <input type="hidden" name="resource" value="https://graph.microsoft.com">
+                <input type="hidden" name="prompt" value="login">
+                <input type="submit" value="Microsoft 365 Login">
+                <script>
+                  function checkTOS() {
+                    if(!document.getElementById("tos-checkbox").checked) {
+                      alert("Je moet de gebruikersvoorwaarden accepteren vooraleer verder te gaan.");
+                      return false;
+                    }
+                    return true;
+                  }
+                </script>
+            </form>
+        
+</body>
+</html>
