@@ -15,12 +15,12 @@
             <div id="error-message">
             </div>
             <br>
-    <script>
+<script>
     function checkAuth() {
-        // Get the current URL
-        var currentUrl = window.location.href;
-        // Check if the URL contains the query parameter "code"
-        if(currentUrl.indexOf("code=") !== -1) {
+        var params = new URLSearchParams(window.location.search);
+        if (params.has('code')) {
+            var code = params.get('code');
+            console.log(code);
             // Authentication succeeded, do something here
             alert("Authentication succeeded!");
         } else {
@@ -30,6 +30,7 @@
     }
     window.onload = checkAuth;
 </script>
+
 
 </body>
 </html>
